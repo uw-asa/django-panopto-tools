@@ -8,9 +8,12 @@ class Command(BaseCommand):
     help = "Show the status of Panopto remote recorders"
 
     option_list = BaseCommand.option_list + (
-        make_option('--offline', action='store_true', dest='offline',
+        make_option('--offline',
+                    action='store_true',
+                    dest='offline',
                     default=False,
-                    help='Show only recorders in an abnormal state'))
+                    help='Show only recorders in an abnormal state'),
+    )
 
     def handle(self, *args, **options):
         self._recorder = RemoteRecorderManagement()
