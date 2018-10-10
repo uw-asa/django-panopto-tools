@@ -1,13 +1,9 @@
 from django_ical.views import ICalFeed
 from icalendar import vCalAddress, vText
-from scheduler.views.api.exceptions import MissingParamException, \
-    InvalidParamException
 from panopto_client import PanoptoAPIException
 from panopto_client.remote_recorder import RemoteRecorderManagement
 from panopto_client.session import SessionManagement
 from panopto_client.user import UserManagement
-from scheduler.utils.recorder import get_api_recorder_details, \
-    RecorderException
 from uw_r25.spaces import get_spaces
 import datetime
 import logging

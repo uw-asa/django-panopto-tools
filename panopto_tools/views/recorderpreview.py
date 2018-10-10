@@ -6,9 +6,7 @@ from userservice.user import UserService
 from authz_group import Group
 from panopto_client.remote_recorder import RemoteRecorderManagement
 from panopto_client import PanoptoAPIException
-from scheduler.utils.recorder import get_api_recorder_details, \
-    RecorderException
-from scheduler.utils.validation import Validation
+import re
 import logging
 from PIL import Image
 import urllib2
@@ -34,7 +32,7 @@ def preview(request, **kwargs):
     try:
         thumb = get_recorder_thumbnail(recorder_id)
         return HttpResponse(thumb.read(), content_type="image/jpeg")
-    except (RecorderException, PanoptoAPIException, IOError) as err:
+    except (PanoptoAPIException, IOError) as err:
         logger.exception(err)
         red = Image.new('RGBA', (1, 1), (255, 0, 0, 0))
         response = HttpResponse(content_type="image/jpeg")
@@ -42,9 +40,19 @@ def preview(request, **kwargs):
         return response
 
 
-def get_private_recorder_details(recorder_id):
-    Validation().panopto_id(recorder_id)
+def get_api_recorder_details(api, recorder_id):
+    if re.match(r'^\d+$', recorder_id):
+        recorders = api.getRemoteRecordersByExternalId(recorder_id)
+    else:
+        recorders = api.getRemoteRecordersById(recorder_id)
 
+    if not (recorders and hasattr(recorders, 'RemoteRecorder')):
+        return None
+
+    return recorders.RemoteRecorder
+
+
+def get_private_recorder_details(recorder_id):
     key = 'RecorderDetails_%s' % recorder_id
     expiration = timezone.now() - datetime.timedelta(hours=1)
 
