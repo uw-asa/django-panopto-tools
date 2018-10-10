@@ -4,6 +4,6 @@ from django.db import models
 
 
 class PersistentData(models.Model):
-    name = models.CharField(max_length=32)
+    name = models.CharField(max_length=128)
     value = models.TextField()
     timestamp = models.DateTimeField(auto_now=True)
