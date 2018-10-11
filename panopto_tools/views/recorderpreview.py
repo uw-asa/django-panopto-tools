@@ -1,20 +1,20 @@
+import datetime
+import logging
+import pickle
+import re
+import urllib2
+
+import simplejson as json
+from authz_group import Group
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
-from django.contrib.auth.decorators import login_required
-from userservice.user import UserService
-from authz_group import Group
-from panopto_client.remote_recorder import RemoteRecorderManagement
 from panopto_client import PanoptoAPIException
-import re
-import logging
-from PIL import Image
-import urllib2
-import simplejson as json
+from panopto_client.remote_recorder import RemoteRecorderManagement
 from panopto_tools.models import PersistentData
-import pickle
-import datetime
-
+from PIL import Image
+from userservice.user import UserService
 
 logger = logging.getLogger(__name__)
 

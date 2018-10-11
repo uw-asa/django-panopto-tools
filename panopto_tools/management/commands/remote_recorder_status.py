@@ -1,7 +1,8 @@
+from optparse import make_option
+
 from django.core.management.base import BaseCommand
 from panopto_client import PanoptoAPIException
 from panopto_client.remote_recorder import RemoteRecorderManagement
-from optparse import make_option
 
 
 class Command(BaseCommand):

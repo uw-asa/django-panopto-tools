@@ -1,3 +1,6 @@
+import datetime
+import logging
+
 from django_ical.views import ICalFeed
 from icalendar import vCalAddress, vText
 from panopto_client import PanoptoAPIException
@@ -5,9 +8,6 @@ from panopto_client.remote_recorder import RemoteRecorderManagement
 from panopto_client.session import SessionManagement
 from panopto_client.user import UserManagement
 from uw_r25.spaces import get_spaces
-import datetime
-import logging
-
 
 logger = logging.getLogger(__name__)
 
