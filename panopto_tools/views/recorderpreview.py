@@ -2,7 +2,7 @@ import datetime
 import logging
 import pickle
 import re
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 import simplejson as json
 from authz_group import Group
@@ -66,9 +66,9 @@ def get_private_recorder_details(recorder_id):
     url = 'https://%s/Panopto/Api/remoteRecorders/%s' % \
           (settings.PANOPTO_SERVER, recorder_id)
 
-    request = urllib2.Request(url)
+    request = urllib.request.Request(url)
     _add_cookies(request)
-    result = urllib2.urlopen(request)
+    result = urllib.request.urlopen(request)
 
     details.value = result.read()
     details.save()
@@ -107,9 +107,9 @@ def get_recorder_preview_url(recorder_id):
 def get_recorder_thumbnail(recorder_id):
     url = get_recorder_preview_url(recorder_id)
 
-    request = urllib2.Request(url)
+    request = urllib.request.Request(url)
     _add_cookies(request)
-    result = urllib2.urlopen(request)
+    result = urllib.request.urlopen(request)
 
     return result
 

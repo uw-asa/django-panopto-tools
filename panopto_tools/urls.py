@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from views.recorder_feed import RecorderFeed
+from .views.recorder_feed import RecorderFeed
 
 from .views import recorderpreview
 
