@@ -126,7 +126,7 @@ def _add_cookies(request):
 
     if not request.has_header('Cookie'):
         # try saved cookie
-        cookiejar._cookies = pickle.loads(c.value)
+        cookiejar._cookies = pickle.loads(eval(c.value))
         cookiejar.add_cookie_header(request)
 
     if not request.has_header('Cookie'):
@@ -134,5 +134,5 @@ def _add_cookies(request):
         _api.listRecorders()
         cookiejar.add_cookie_header(request)
 
-    c.value = pickle.dumps(cookiejar._cookies)
+    c.value = str(pickle.dumps(cookiejar._cookies))
     c.save()
